@@ -2,7 +2,7 @@ from hiraganautil import hiraganautil
 
 hiragana_all = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん"
 #  ----------------------ここを弄る------------------------------------
-shieldbreaker_onhand = "んうと"  # 手持ちのシールドブレーカー持ちの頭文字
+shieldbreaker_onhand = "いんうと"  # 手持ちのシールドブレーカー持ちの頭文字
 changeguard_onhand = "きうゆかこ"  # 手持ちのチェンジガード持ちの頭文字
 other_onhand = hiragana_all  # 手持ちのその他の頭文字
 # other_onhand = "ふ"  # 手持ちのその他の頭文字
@@ -20,9 +20,15 @@ def filtering_words(words):
         return word[-1] in shieldbreaker_onhand
 
     def check_changeguard(word):
-        has_second = word[-2] in changeguard_onhand
-        has_third = word[-3] in changeguard_onhand
-        return has_second and has_third
+        if len(word) <= 1:
+            return True
+        elif len(word) == 2:
+            has_second = word[-2] in changeguard_onhand
+            return has_second
+        else:
+            has_second = word[-2] in changeguard_onhand
+            has_third = word[-3] in changeguard_onhand
+            return has_second and has_third
 
     def check_onhand(word):
         return all([char in all_onhand for char in word])
